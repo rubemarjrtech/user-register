@@ -10,14 +10,17 @@ import { useRef } from "react";
 import api from "../../services/api";
 import Button from "../../components/Button";
 import TopBackground from "../../components/TopBackground";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const inputName = useRef();
   const inputAge = useRef();
   const inputEmail = useRef();
 
+  const navigate = useNavigate();
+
   async function registerUser() {
-    const data = await api.post("/users", {
+    const data = await api.post("/user", {
       name: inputName.current.value,
       age: inputAge.current.value,
       email: inputEmail.current.value,
@@ -36,20 +39,16 @@ function App() {
         <ContainerInputs>
           <div>
             <InputLabel>
-              Nome<span>*</span>
+              Name<span>*</span>
             </InputLabel>
-            <Input type="text" placeholder="Nome do usuário" ref={inputName} />
+            <Input type="text" placeholder="Name" ref={inputName} />
           </div>
 
           <div>
             <InputLabel>
-              Idade<span>*</span>
+              Age<span>*</span>
             </InputLabel>
-            <Input
-              type="number"
-              placeholder="Idade do usuário"
-              ref={inputAge}
-            />
+            <Input type="number" placeholder="Age" ref={inputAge} />
           </div>
         </ContainerInputs>
 
@@ -57,14 +56,14 @@ function App() {
           <InputLabel>
             Email<span> *</span>
           </InputLabel>
-          <Input
-            type="email"
-            placeholder="E-mail do usuário"
-            ref={inputEmail}
-          />
+          <Input type="email" placeholder="Email" ref={inputEmail} />
         </div>
-        <Button type="button" onClick={registerUser}>
-          Cadastrar Usuário
+        <Button type="button" onClick={registerUser} theme="primary">
+          Register User
+        </Button>
+
+        <Button type="button" onClick={() => navigate("/users")}>
+          Show user list
         </Button>
       </Form>
     </Container>
